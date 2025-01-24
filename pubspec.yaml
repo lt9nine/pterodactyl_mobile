@@ -17,3 +17,10 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  fonts:
+    - family: Geist Mono
+      fonts:
+        - asset: assets/fonts/geist_mono/GeistMono-Bold.ttf
+        - asset: assets/fonts/geist_mono/GeistMono-Regular.ttf
+        - asset: assets/fonts/geist_mono/GeistMono-Thin.ttf
