@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pterodactyl_mobile/pages/dashboard.dart';
+import 'package:pterodactyl_mobile/pages/servers.dart';
+import 'package:pterodactyl_mobile/pages/settings.dart';
 import 'package:pterodactyl_mobile/theme/theme_constants.dart';
 import 'package:pterodactyl_mobile/theme/theme_manager.dart';
 
@@ -34,6 +37,13 @@ class _PteroMainAppState extends State<PteroMainApp> {
     }
   }
 
+  int _selectedIndex = 0;
+  List<Widget> body = [
+    Dashboard(),
+    Servers(),
+    Settings(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -45,14 +55,22 @@ class _PteroMainAppState extends State<PteroMainApp> {
         appBar: AppBar(
           title: Center(child: Text('Pterodactyl')),
         ),
-        bottomNavigationBar: BottomNavigationBar(items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.dashboard), label: 'Dashboard'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.desktop_windows_outlined), label: 'Servers'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.settings), label: 'Settings'),
-        ]),
+        body: body[_selectedIndex],
+        bottomNavigationBar: BottomNavigationBar(
+            currentIndex: _selectedIndex,
+            onTap: (int index) {
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
+            items: [
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.dashboard), label: 'Dashboard'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.desktop_windows_outlined), label: 'Servers'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.settings), label: 'Settings'),
+            ]),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             _themeManager
