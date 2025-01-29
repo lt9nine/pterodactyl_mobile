@@ -65,11 +65,20 @@ class _PteroMainAppState extends State<PteroMainApp> {
             },
             items: [
               BottomNavigationBarItem(
-                  icon: Icon(Icons.dashboard), label: 'Dashboard'),
+                  icon: Icon(_selectedIndex == 0
+                      ? Icons.dashboard
+                      : Icons.dashboard_outlined),
+                  label: 'Dashboard'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.desktop_windows_outlined), label: 'Servers'),
+                  icon: Icon(_selectedIndex == 1
+                      ? Icons.desktop_windows
+                      : Icons.desktop_windows_outlined),
+                  label: 'Servers'),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.settings), label: 'Settings'),
+                  icon: Icon(_selectedIndex == 2
+                      ? Icons.settings
+                      : Icons.settings_outlined),
+                  label: 'Settings'),
             ]),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
