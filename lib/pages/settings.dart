@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:pterodactyl_mobile/theme/theme_manager.dart';
 import 'package:pterodactyl_mobile/util/api.dart';
 import 'package:pterodactyl_mobile/util/get_string_from_shared_preferences.dart';
+import 'package:pterodactyl_mobile/util/get_bool_from_shared_preferences.dart';
 import 'package:pterodactyl_mobile/util/text_input_dialog.dart';
 
 class Settings extends StatefulWidget {
-  const Settings({super.key});
+  final ThemeManager themeManager;
+
+  const Settings({super.key, required this.themeManager});
 
   @override
   State<Settings> createState() => _SettingsState();
@@ -13,6 +17,7 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   String apiKey = "";
   String baseUrl = "";
+  bool darkMode = false;
 
   @override
   void initState() {
@@ -26,6 +31,12 @@ class _SettingsState extends State<Settings> {
       setState(() {
         baseUrl = value;
       });
+    });
+    getBoolFromSharedPreferences('dark_mode').then((value) {
+      setState(() {
+        darkMode = value;
+      });
+      widget.themeManager.toggleTheme(value);
     });
   }
 
@@ -44,6 +55,25 @@ class _SettingsState extends State<Settings> {
             ],
           ),
           Divider(height: 20, thickness: 1),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                  child: Text('Dark Mode', style: TextStyle(fontSize: 18))),
+              Switch(
+                value: darkMode,
+                onChanged: (value) {
+                  setBoolToSharedPreferences("dark_mode", value);
+                  setState(() {
+                    darkMode = value;
+                  });
+                  widget.themeManager.toggleTheme(value);
+                },
+              ),
+            ],
+          ),
           SizedBox(height: 40),
           Row(
             children: [

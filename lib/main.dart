@@ -4,6 +4,7 @@ import 'package:pterodactyl_mobile/pages/servers.dart';
 import 'package:pterodactyl_mobile/pages/settings.dart';
 import 'package:pterodactyl_mobile/theme/theme_constants.dart';
 import 'package:pterodactyl_mobile/theme/theme_manager.dart';
+import 'package:pterodactyl_mobile/util/get_bool_from_shared_preferences.dart';
 
 void main() {
   runApp(PteroMainApp());
@@ -29,6 +30,9 @@ class _PteroMainAppState extends State<PteroMainApp> {
   void initState() {
     _themeManager.addListener(themeListener);
     super.initState();
+    getBoolFromSharedPreferences('dark_mode').then((value) {
+      _themeManager.toggleTheme(value);
+    });
   }
 
   themeListener() {
@@ -41,7 +45,7 @@ class _PteroMainAppState extends State<PteroMainApp> {
   List<Widget> body = [
     Dashboard(),
     Servers(),
-    Settings(),
+    Settings(themeManager: _themeManager),
   ];
 
   @override
@@ -80,13 +84,6 @@ class _PteroMainAppState extends State<PteroMainApp> {
                       : Icons.settings_outlined),
                   label: 'Settings'),
             ]),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            _themeManager
-                .toggleTheme(_themeManager.themeMode == ThemeMode.light);
-          },
-          child: Icon(Icons.dark_mode),
-        ),
       ),
     );
   }
