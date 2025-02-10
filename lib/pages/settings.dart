@@ -3,22 +3,27 @@ import 'package:pterodactyl_mobile/util/get_string_from_shared_preferences.dart'
 import 'package:pterodactyl_mobile/util/text_input_dialog.dart';
 
 class Settings extends StatefulWidget {
-  Settings({super.key});
+  const Settings({super.key});
 
   @override
   State<Settings> createState() => _SettingsState();
 }
 
 class _SettingsState extends State<Settings> {
-  String apiKey = '';
+  String apiKey = "";
+  String baseUrl = "";
 
   @override
   void initState() {
     super.initState();
     getStringFromSharedPreferences('api_key').then((value) {
-      print(value);
       setState(() {
         apiKey = value;
+      });
+    });
+    getStringFromSharedPreferences('base_url').then((value) {
+      setState(() {
+        baseUrl = value;
       });
     });
   }
@@ -39,7 +44,14 @@ class _SettingsState extends State<Settings> {
           ),
           Divider(height: 20, thickness: 1),
           SizedBox(height: 10),
-          buildExpandableSettingsItem(context, 'Set API Key'),
+          buildExpandableSettingsItem(context, "Set Base URL"),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 30),
+            child: Row(
+              children: [Text('Current URL: '), Text(baseUrl)],
+            ),
+          ),
+          buildExpandableSettingsItem(context, "Set API Key"),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 30),
             child: Row(
@@ -62,6 +74,14 @@ class _SettingsState extends State<Settings> {
               setStringToSharedPreferences('api_key', newKey);
               setState(() {
                 apiKey = newKey;
+              });
+            }
+          } else if (title == 'Set Base URL') {
+            String? newUrl = await showTextInputDialog(context);
+            if (newUrl != null) {
+              setStringToSharedPreferences('base_url', newUrl);
+              setState(() {
+                baseUrl = newUrl;
               });
             }
           }
