@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pterodactyl_mobile/util/api.dart';
 import 'package:pterodactyl_mobile/util/get_string_from_shared_preferences.dart';
 import 'package:pterodactyl_mobile/util/text_input_dialog.dart';
 
@@ -37,6 +38,15 @@ class _SettingsState extends State<Settings> {
           SizedBox(height: 40),
           Row(
             children: [
+              Icon(Icons.settings),
+              SizedBox(width: 10),
+              Text('General Settings', style: TextStyle(fontSize: 20)),
+            ],
+          ),
+          Divider(height: 20, thickness: 1),
+          SizedBox(height: 40),
+          Row(
+            children: [
               Icon(Icons.api),
               SizedBox(width: 10),
               Text('API Settings', style: TextStyle(fontSize: 20)),
@@ -48,14 +58,37 @@ class _SettingsState extends State<Settings> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 30),
             child: Row(
-              children: [Text('Current URL: '), Text(baseUrl)],
+              children: [
+                Text('URL: '),
+                Flexible(
+                  child: Text(
+                    baseUrl,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
             ),
           ),
           buildExpandableSettingsItem(context, "Set API Key"),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 30),
             child: Row(
-              children: [Text('Current Key: '), Text(apiKey)],
+              children: [
+                Text('Key: '),
+                Flexible(
+                  child: Text(
+                    apiKey,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+            child: ElevatedButton(
+              onPressed: () => testConnection(context, baseUrl, apiKey),
+              child: Text('Test Connection'),
             ),
           ),
           SizedBox(height: 40),
