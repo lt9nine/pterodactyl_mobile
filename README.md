@@ -22,35 +22,57 @@ This project is for educational purposes only.
 
 #### `PteroMainApp` ([lib/main.dart](lib/main.dart))
 - **Description**: The main entry point of the application.
-- **Methods**:
-  - `initState`: Initializes the app and sets the theme based on user preferences.
-  - `dispose`: Cleans up listeners when the app is closed.
+- **Custom Methods**:
+  - `themeListener`: Updates the app's theme when the theme manager notifies changes.
 
 #### `ServerDetail` ([lib/pages/server_detail.dart](lib/pages/server_detail.dart))
 - **Description**: Displays detailed information about a specific server.
-- **Methods**:
+- **Custom Methods**:
   - `_sendServerCommand(String command)`: Sends a command (e.g., start, stop, restart) to the server.
-  - `NavigationButton`: Navigates to pages like "Send Commands" or "Show Netgraph."
+  - `_fetchServerDetails()`: Fetches server details like state, memory, CPU, and disk usage.
+  - `_updateServerState(String state)`: Updates the server state display.
 
 #### `ServerNetgraph` ([lib/pages/server_netgraph.dart](lib/pages/server_netgraph.dart))
 - **Description**: Displays a network graph for monitoring server traffic.
-- **Key Features**:
-  - Uses `FlGridData` and `FlBorderData` to render the graph.
-  - Includes a legend for inbound and outbound traffic.
+- **Custom Methods**:
+  - `_fetchNetworkData()`: Fetches network traffic data for the graph.
+  - `_buildGraph()`: Constructs the network graph using the fetched data.
 
 #### `Servers` ([lib/pages/servers.dart](lib/pages/servers.dart))
 - **Description**: Displays a list of servers.
-- **Methods**:
+- **Custom Methods**:
   - `_refreshPage()`: Refreshes the server list.
-  - `onTap`: Navigates to the `ServerDetail` page for a selected server.
+  - `_fetchServers()`: Fetches the list of servers from the API.
 
 #### `Settings` ([lib/pages/settings.dart](lib/pages/settings.dart))
-- **Description**: Allows users to configure API settings.
-- **Key Features**:
+- **Description**: Allows users to configure API settings and toggle dark mode.
+- **Custom Methods**:
   - `buildExpandableSettingsItem`: Creates expandable settings for API key and base URL.
-  - Displays the current API key and base URL.
+  - `setBoolToSharedPreferences(String key, bool value)`: Saves a boolean preference.
+  - `getBoolFromSharedPreferences(String key)`: Retrieves a boolean preference.
 
-#### `ResourceCard` ([lib/pages/server_detail.dart](lib/pages/server_detail.dart))
+#### `ResourceCard` ([lib/widgets/resource_card.dart](lib/widgets/resource_card.dart))
 - **Description**: A reusable widget for displaying resource usage (e.g., memory, CPU, disk).
 - **Key Features**:
   - Displays an icon, title, and formatted resource usage.
+
+#### `ThemeManager` ([lib/theme/theme_manager.dart](lib/theme/theme_manager.dart))
+- **Description**: Manages the app's theme (light or dark).
+- **Custom Methods**:
+  - `toggleTheme(bool isDark)`: Toggles between light and dark themes.
+
+#### `API Utilities` ([lib/util/api.dart](lib/util/api.dart))
+- **Description**: Contains helper methods for API interactions.
+- **Custom Methods**:
+  - `fetchData(String endpoint)`: Fetches data from the specified API endpoint.
+  - `sendCommand(String endpoint, String command)`: Sends a command to the server.
+
+#### `NotificationUtil` ([lib/util/notification_util.dart](lib/util/notification_util.dart))
+- **Description**: Handles notifications for server events.
+- **Custom Methods**:
+  - `showNotification(String title, String message)`: Displays a notification.
+
+#### `ServerStateUtil` ([lib/util/server_state_util.dart](lib/util/server_state_util.dart))
+- **Description**: Provides utilities for interpreting server states.
+- **Custom Methods**:
+  - `getStateColor(String state)`: Returns a color based on the server state.
