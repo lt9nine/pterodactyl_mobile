@@ -65,6 +65,14 @@ class _ServerDetailState extends State<ServerDetail> {
   }
 
   Future<void> _sendServerCommand(String command) async {
+    if (apiKey.isEmpty || baseUrl.isEmpty) {
+      NotificationUtil.showSnackBar(
+        context,
+        'API key or Base URL is missing. Please check your settings.',
+      );
+      return;
+    }
+
     ApiService apiService = ApiService(baseUrl: baseUrl, apiKey: apiKey);
     try {
       final response =
@@ -72,19 +80,19 @@ class _ServerDetailState extends State<ServerDetail> {
       if (response.statusCode == 204) {
         NotificationUtil.showSnackBar(
           context,
-          'Server $command command sent successfully',
+          'Server $command command sent successfully.',
         );
         _refreshPage(); // Refresh the page after a successful command
       } else {
         NotificationUtil.showSnackBar(
           context,
-          'Failed to send $command command',
+          'Failed to send $command command. Status code: ${response.statusCode}',
         );
       }
     } catch (e) {
       NotificationUtil.showSnackBar(
         context,
-        'Error: $e',
+        'Error sending $command command: $e',
       );
     }
   }

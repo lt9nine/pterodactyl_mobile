@@ -4,12 +4,16 @@ class NavigationButton extends StatelessWidget {
   final String label;
   final Color color;
   final VoidCallback onPressed;
+  final TextStyle? textStyle; // Optional parameter for text style
+  final EdgeInsetsGeometry? padding; // Optional parameter for padding
 
   const NavigationButton({
     super.key,
     required this.label,
     required this.color,
     required this.onPressed,
+    this.textStyle,
+    this.padding,
   });
 
   @override
@@ -23,7 +27,13 @@ class NavigationButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
           ),
         ),
-        child: Text(label),
+        child: Padding(
+          padding: padding ?? const EdgeInsets.all(8.0), // Default padding
+          child: Text(
+            label,
+            style: textStyle, // Apply custom text style if provided
+          ),
+        ),
       ),
     );
   }

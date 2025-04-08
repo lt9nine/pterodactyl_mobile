@@ -61,7 +61,7 @@ class ApiService {
 
   Future<http.Response> sendSignal(
       String serverIdentifier, String command) async {
-    final endpoint = '/api/client/servers/$serverIdentifier/command';
+    final endpoint = '/api/client/servers/$serverIdentifier/power';
     final body = {'signal': command};
 
     return await post(endpoint, jsonEncode(body));

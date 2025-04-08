@@ -9,9 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  shared_preferences: ^2.0.0
-  http: ^1.3.0
+  shared_preferences: ^2.1.0
+  http: ^1.4.0
   fl_chart: ^0.70.0
   web_socket_channel: ^2.3.0
 
