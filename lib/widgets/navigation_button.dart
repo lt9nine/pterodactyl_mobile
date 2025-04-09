@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// Button to navigate between different pages in the app
+// Used on the Server Detail Page for example: "Show Console"
 class NavigationButton extends StatelessWidget {
   final String label;
   final Color color;

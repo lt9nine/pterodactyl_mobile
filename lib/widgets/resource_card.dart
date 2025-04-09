@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// A card widget that displays a resource with an icon, title, and subtitle.
 class ResourceCard extends StatelessWidget {
   final IconData icon;
   final Color iconColor;

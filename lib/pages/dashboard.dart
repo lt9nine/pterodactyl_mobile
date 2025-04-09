@@ -18,7 +18,7 @@ class _DashboardState extends State<Dashboard> {
   int runningServers = 0;
   int stoppedServers = 0;
   int restartingServers = 0;
-  bool isLoading = true;
+  bool isLoading = true; // Loading state for the dashboard
   double cpuUsage = 0.0;
   Timer? _refreshTimer; // Timer for auto-refresh
 

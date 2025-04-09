@@ -43,15 +43,15 @@ class ApiService {
     }
   }
 
-  Future<http.Response> getServers() async {
+  Future<http.Response> getServers() async { // Retrieves all servers
     return await get('/api/client');
   }
 
-  Future<http.Response> getServerResources(String serverIdentifier) async {
+  Future<http.Response> getServerResources(String serverIdentifier) async { // Retrieves servers resources (specific server)
     return await get('/api/client/servers/$serverIdentifier/resources');
   }
 
-  Future<http.Response> sendCommand(
+  Future<http.Response> sendCommand( // Sends command to server
       String serverIdentifier, String command) async {
     final endpoint = '/api/client/servers/$serverIdentifier/command';
     final body = {'command': command};
@@ -59,7 +59,7 @@ class ApiService {
     return await post(endpoint, jsonEncode(body));
   }
 
-  Future<http.Response> sendSignal(
+  Future<http.Response> sendSignal( // Sends signal to server (start, stop, restart)
       String serverIdentifier, String command) async {
     final endpoint = '/api/client/servers/$serverIdentifier/power';
     final body = {'signal': command};
@@ -68,7 +68,7 @@ class ApiService {
   }
 }
 
-Future<void> testConnection(
+Future<void> testConnection( // Tests the connection to the Pterodactyl API (Settings.dart)
     BuildContext context, String baseUrl, String apiKey) async {
   try {
     final response = await http.get(

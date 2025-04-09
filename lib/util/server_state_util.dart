@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ServerStateUtil {
-  /// Returns the color associated with the server state.
+  // Returns the color associated with the server state.
   static Color getStateColor(String state) {
     switch (state.toLowerCase()) {
       case 'running':
